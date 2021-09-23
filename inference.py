@@ -10,7 +10,6 @@ sc_x = pickle.load(open('scaler_x.pkl','rb'))
 
 model = load_model('lstm_bitcoin.h5')
 #df = pd.read_csv('df_test.csv')
-df.drop(columns = 'index', inplace = True)
 
 def create_lookback(dataset, look_back=30):
     X, Y = [], []
@@ -21,6 +20,7 @@ def create_lookback(dataset, look_back=30):
     return np.array(X), np.array(Y)
 
 def predict(df): #argument df is a pandas dataframe
+  df.drop(columns = 'index', inplace = True)
   X_test = df.drop(columns = 'Bitcoin Core (BTC) Price')
   X_test = pd.DataFrame(sc_x.transform(X_test), columns = X_test.columns)
 
